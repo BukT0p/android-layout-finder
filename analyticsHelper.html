@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Google Analytics helper</title>
+    <script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
+    <!--<script type="text/javascript" src="js/lib/jquery.zclip.min.js"></script>-->
+    <script type="text/javascript" src="js/lib/jquery-ui.custom.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.cookie.js"></script>
+    <link rel='stylesheet' type='text/css' href='css/ui.dynatree.css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="js/lib/jquery.dynatree.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/parser.js"></script>
+    <script type="text/javascript" src="js/code_generators.js"></script>
+    <link rel='stylesheet' type='text/css' href='css/style.css'>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8">
+            <h1>
+                Analytics helper
+            </h1>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span8" id="main">
+            <div id="step_1">
+                <h3 class="three_header three_header_first">1. Enter Android
+                    XML Layout:</h3>
+
+                <p class="three_header_tip">Paste google analytics values</p>
+                <textarea rows="10" class="input-block-level" id="values_input">
+                </textarea>
+            </div>
+            <div id="step_3">
+                <h3 class="three_header">
+                    2. Get your Java code:
+                </h3>
+
+                <div id="code_alert"></div>
+                <pre id="output"></pre>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
