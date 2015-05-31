@@ -31,9 +31,9 @@ function generateJavaFromTree() {
 	} else if ( $("#radio_codetype_ca").is(":checked") ) {
 		// CursorAdapter with ViewHolder
 		result = generateJavaFromTreeCa(selected, rootNode);
-	} else if ( $("#radio_codetype_rg").is(":checked") ) {
-		// RoboGuice
-		result = generateJavaFromTreeRg(selected);
+	} else if ( $("#radio_codetype_android_annotations").is(":checked") ) {
+		// Android Annotations
+		result = generateJavaFromTreeAndrAnot(selected);
 	}
 	
 	result += "\n";
@@ -42,6 +42,7 @@ function generateJavaFromTree() {
 }
 
 function generateJavaFromTreeMv(selected) {
+    //TODO
 	var result = "";
 	for ( var i = 0; i < selected.length; i++ ) {
 		var node = selected[i];
@@ -317,27 +318,34 @@ function generateJavaFromTreeCa(selected, root) {
 	return result;
 } 
 
-function generateJavaFromTreeRg(selected) {
-	var linebreak = $("#chk_rg_linebreak").is(":checked");
+function generateJavaFromTreeAndrAnot(selected) {
+    //TODO
 	var longestVar = 0;
 	var result = "";
+    var clicklisteners = $("#chk_aa_clicklisteners").is(":checked");
+    var buttons = [];
 	$.each( selected, function(i,node) {
 		longestVar = Math.max( longestVar, node.var_id.length );
 	});
 	
 	$.each( selected, function(i,node) {
-		result += "\t@InjectView(" + node.java_id + ") ";
-		if ( linebreak ) {
-			result += "\n\tprivate " + node.className + " " + node.varName + ";\n";
-		} else {
-			var padlength = longestVar - node.var_id.length;
-			for ( var i = 0; i < padlength; i++ ) {
-				result += " ";
-			}
-			result += "private " + node.className + " " + node.varName + ";\n";
-		}
-	});
-	
+        result += "\n\t@ViewById(" + node.java_id + ") ";
+        result += "\n\t" + node.className + " " + node.varName + ";\n";
+    });
+
+    $.each( selected, function(i,node) {
+        if ( node.className.indexOf( "Button", node.className.length-6 ) !== -1 ) {
+            buttons.push( node );
+        }
+    });
+
+    if ( clicklisteners && buttons.length > 0 ) {
+        for ( var i = 0; i < buttons.length; i++ ) {
+            var btn = buttons[i];
+            result += "\n\t@Click(" + btn.java_id + ")";
+            result += "\n\tvoid " + btn.varName + "Clicked() {\n\t\t\n\t}\n";
+        }
+    }
 	return result;
 }
 
@@ -370,8 +378,7 @@ function getJavadocComment( tabs, text ) {
 	}
 	var date = new Date();
 	result += " * Auto-created on " + date.getFullYear() + "-" + zeropad( date.getMonth()+1, 2 ) + "-" + zeropad( date.getDate(), 2 ) + " " + zeropad( date.getHours(), 2 ) + ":" + zeropad( date.getMinutes(), 2 ) + ":" + zeropad( date.getSeconds(), 2 );
-	result += " by Android Layout Finder\n";
-	result += " * (http://www.buzzingandroid.com/tools/android-layout-finder)\n";
+	result += " by Android Layout Inspector\n";
 	result += " */";
 	
 		
